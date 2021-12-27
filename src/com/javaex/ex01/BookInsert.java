@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class AuthorInsert {
+public class BookInsert {
 
 	public static void main(String[] args) {
 		
-		// INSERT
+		// INSERT - book
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -26,19 +26,19 @@ public class AuthorInsert {
 
 		    // 3. SQL문 준비 / 바인딩 / 실행
 			
-			 // 문자열 만들기 --> ? 주의
 		    String query= "";
-		    // query= query+"문자열"
-		    query += "insert into author";
-		    query += " values(seq_author_id.nextval, ?, ?) ";
+		    query += "insert into book";
+		    query += " values(seq_book_id.nextval, ?, ?, ?, ?) ";
 			System.out.println(query);
 		    
 		    // 문자열 쿼리문으로 만들기
 		    pstmt= conn.prepareStatement(query);
 		    
 		    // 바인딩
-		    pstmt.setString(1, "알쓸신잡");  // 첫번째 물음표의 데이터
-		    pstmt.setString(2, "김영하"); // 두번째 물음표의 데이터
+		    pstmt.setString(1, "우리들의 일그러진 영웅"); // title
+		    pstmt.setString(2, "다림"); // pubs
+		    pstmt.setString(3, "1998-02-22"); // pub_date		   
+		    pstmt.setInt(4, 1); // author_id
 		    
 		    // 실행
 		    int count= pstmt.executeUpdate();	    
