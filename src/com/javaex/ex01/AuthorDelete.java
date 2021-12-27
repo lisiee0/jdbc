@@ -9,7 +9,7 @@ public class AuthorDelete {
 
 	public static void main(String[] args) {
 		
-		// delete
+		// DELETE
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -61,9 +61,6 @@ public class AuthorDelete {
 		    } catch (SQLException e) {
 		        System.out.println("error:" + e);
 		    }
-
 		}
-
 	}
-
 }

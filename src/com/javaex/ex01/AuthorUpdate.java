@@ -10,7 +10,7 @@ public class AuthorUpdate {
 	public static void main(String[] args) {
 		
 		
-		// update
+		// UPDATE
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -66,8 +66,6 @@ public class AuthorUpdate {
 		    } catch (SQLException e) {
 		        System.out.println("error:" + e);
 		    }
-
 		}
-
 	}
 }
