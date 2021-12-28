@@ -35,10 +35,10 @@ public class BookInsert {
 		    pstmt= conn.prepareStatement(query);
 		    
 		    // 바인딩
-		    pstmt.setString(1, "26년"); // title
-		    pstmt.setString(2, "재미주의"); // pubs
-		    pstmt.setString(3, "2012-02-04"); // pub_date		   
-		    pstmt.setInt(4, 5); // author_id
+		    pstmt.setString(1, "우리들의 일그러진 영웅"); // title
+		    pstmt.setString(2, "다림"); // pubs
+		    pstmt.setString(3, "1998-02-22"); // pub_date		   
+		    pstmt.setInt(4, 1); // author_id
 		    
 		    // 실행
 		    int count= pstmt.executeUpdate();	    

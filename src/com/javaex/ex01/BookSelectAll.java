@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AuthorSelect {
+public class BookSelectAll {
 
 	public static void main(String[] args) {
-		
-		// 작가데이터 가져오기
+		// SELECT - book
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -24,13 +23,17 @@ public class AuthorSelect {
 			String url = "jdbc:oracle:thin:@localhost:1521:xe";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
-		    // 3. SQL문 준비 / 바인딩 / 실행
-		    // 문자열 만들기
+		    // 3. SQL문 준비 / 바인딩 / 실행		
 			String query= "";
-			query += " select   author_id id, "; // author_id as id
+			query += " select   book_id, "; 
+			query += "          title, ";
+			query += "          pubs, ";
+			query += "          to_char(pub_date, 'YYYY-MM-DD') pub_date, ";
+			query += "          a.author_id id, ";
 			query += "          author_name, ";
 			query += "          author_desc ";
-			query += " from     author ";
+			query += " from     book b, author a ";
+			query += " where    b.author_id= a.author_id ";
 			System.out.println(query);
 			
 			// 문자열 쿼리문으로 만들기
@@ -42,22 +45,18 @@ public class AuthorSelect {
 			rs= pstmt.executeQuery();
 			
 		    // 4.결과처리
-            while(rs.next()) {
-            	/*
-            	int authorId= rs.getInt("id"); // 컬럼명이 id로 변경되었기 때문에
+            while(rs.next()) {           
+            	int bookId= rs.getInt("book_id"); 
+            	String title= rs.getString("title");
+            	String pubs= rs.getString("pubs");
+            	String pub_date= rs.getString("pub_date");
+            	int authorId= rs.getInt("id");
             	String authorName= rs.getString("author_name");
-            	String authorDesc= rs.getString("author_desc");
-            	System.out.println(authorId+"\t"+authorName+"\t"+authorDesc);
-            	*/
-            	
-            	int authorId= rs.getInt(1);
-            	String authorName= rs.getString(2);
-            	String authorDesc= rs.getString(3);
-            	System.out.println(authorId+"\t"+authorName+"\t"+authorDesc);
+            	String authordesc= rs.getString("author_desc");
+            	System.out.println(bookId+", "+title+", "+pubs+", "+pub_date+", "+authorId+", "+authorName+", "+authordesc);
+
             }
-			
-			
-			
+				
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
