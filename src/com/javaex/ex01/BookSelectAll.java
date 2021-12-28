@@ -5,10 +5,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookSelectAll {
 
 	public static void main(String[] args) {
+		
+		List<BookAllVo> bookallList= new ArrayList<BookAllVo>();
+		
 		// SELECT - book
 		// 0. import java.sql.*;
 		Connection conn = null;
@@ -34,7 +39,7 @@ public class BookSelectAll {
 			query += "          author_desc ";
 			query += " from     book b, author a ";
 			query += " where    b.author_id= a.author_id ";
-			System.out.println(query);
+			// System.out.println(query);
 			
 			// 문자열 쿼리문으로 만들기
 			pstmt= conn.prepareStatement(query);
@@ -52,9 +57,16 @@ public class BookSelectAll {
             	String pub_date= rs.getString("pub_date");
             	int authorId= rs.getInt("id");
             	String authorName= rs.getString("author_name");
-            	String authordesc= rs.getString("author_desc");
-            	System.out.println(bookId+", "+title+", "+pubs+", "+pub_date+", "+authorId+", "+authorName+", "+authordesc);
-
+            	String authorDesc= rs.getString("author_desc");
+            	// System.out.println(bookId+", "+title+", "+pubs+", "+pub_date+", "+authorId+", "+authorName+", "+authordesc);
+            	
+            	BookAllVo vo= new BookAllVo(bookId, title, pubs, pub_date, authorId, authorName, authorDesc);
+            	bookallList.add(vo);
+            }
+            
+            // 출력
+            for(BookAllVo ba: bookallList) {
+            	ba.showInfo();
             }
 				
 		} catch (ClassNotFoundException e) {

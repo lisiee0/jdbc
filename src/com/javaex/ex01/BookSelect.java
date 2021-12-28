@@ -5,10 +5,14 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookSelect {
 
 	public static void main(String[] args) {
+		
+		List<BookVo> bookList= new ArrayList<BookVo>();
 		
 		// SELECT - book
 		// 0. import java.sql.*;
@@ -32,7 +36,7 @@ public class BookSelect {
 			query += "          to_char(pub_date, 'YYYY-MM-DD') pub_date, ";
 			query += "          author_id ";
 			query += " from     book ";
-			System.out.println(query);
+			// System.out.println(query);
 			
 			// 문자열 쿼리문으로 만들기
 			pstmt= conn.prepareStatement(query);
@@ -49,10 +53,18 @@ public class BookSelect {
             	String pubs= rs.getString("pubs");
             	String pub_date= rs.getString("pub_date");
             	int authorId= rs.getInt("author_id");
-            	System.out.println(bookId+"\t"+title+"\t"+pubs+"\t"+pub_date+"\t"+authorId);
-
+            	// System.out.println(bookId+"\t"+title+"\t"+pubs+"\t"+pub_date+"\t"+authorId);
+            	
+            	BookVo vo= new BookVo(bookId, title, pubs, pub_date, authorId);
+            	bookList.add(vo);
             }
-				
+            
+            
+            // 출력
+            for(BookVo b: bookList) {
+            	b.showInfo();
+            }
+            
 		} catch (ClassNotFoundException e) {
 		    System.out.println("error: 드라이버 로딩 실패 - " + e);
 		} catch (SQLException e) {
