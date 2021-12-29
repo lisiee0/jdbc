@@ -49,7 +49,9 @@ public class AuthorVo {
 		return "AuthorVo [authorId=" + authorId + ", authorName=" + authorName + ", authorDesc=" + authorDesc + "]";
 	}
 	
-
+	public void showInfo() {
+		System.out.println(this.getAuthorId()+", "+this.getAuthorName()+", "+this.getAuthorDesc());
+	}
 	
 	
 }
