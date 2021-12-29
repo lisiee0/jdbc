@@ -118,7 +118,7 @@ public class AuthorDao {
 		}
 	}
 	
-	public void authorUpdate(int authorId, String authorName, String authorDesc ) {
+	public void authorUpdate(AuthorVo authorVo) {
 		// 0. import java.sql.*;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -143,9 +143,9 @@ public class AuthorDao {
 		    pstmt= conn.prepareStatement(query);
 		    
 		    // 바인딩
-		    pstmt.setString(1, authorName);
-		    pstmt.setString(2, authorDesc);
-		    pstmt.setInt(3, authorId);
+		    pstmt.setString(1, authorVo.getAuthorName());
+		    pstmt.setString(2, authorVo.getAuthorDesc());
+		    pstmt.setInt(3, authorVo.getAuthorId());
 		    
 		    int count= pstmt.executeUpdate();
 		    

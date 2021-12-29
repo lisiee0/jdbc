@@ -18,6 +18,30 @@ public class AuthorApp {
 		AuthorVo vo03= new AuthorVo("유시민", "17대 국회의원");
 		authorDao.authorInsert(vo03);
 		
+		
+		System.out.println("---------------------------------------");
+		list= authorDao.authorSelect();
+		for(AuthorVo av: list) {
+			av.showInfo();
+		}
+		System.out.println("---------------------------------------");
+		
+		
+		// 작가수정
+		AuthorVo authorVo= new AuthorVo(2, "박경리(수정)", "경상남도 통영(수정)");
+		authorDao.authorUpdate(authorVo);
+		
+		System.out.println("---------------------------------------");
+		list= authorDao.authorSelect();
+		for(AuthorVo av: list) {
+			av.showInfo();
+		}
+		System.out.println("---------------------------------------");
+		
+		
+		// 작가삭제
+		authorDao.authorDelete(2);
+		
 		System.out.println("---------------------------------------");
 		list= authorDao.authorSelect();
 		for(AuthorVo av: list) {
