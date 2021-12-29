@@ -16,13 +16,15 @@ public class AuthorApp {
 		authorDao.authorInsert("강풀", "온라인 만화가 1세대");
 		authorDao.authorInsert("김영하", "알쓸신잡");
 		
-		
+		/*
 		// 작가수정
 		authorDao.authorUpdate(2, "박경리(수정)", "경상남도 통영(수정)");
 		
 		// 작가삭제
 		authorDao.authorDelete(1);
+		*/
 		
+		// 작가리스트 출력
 		List<AuthorVo> authorList= authorDao.authorSelect();
 		for(AuthorVo av: authorList) {
 			av.showInfo();
