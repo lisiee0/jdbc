@@ -61,35 +61,15 @@ public class BookApp {
 		
 		BookVo bo08= new BookVo("26년", "재미주의", "2012-02-04", 4);		
 		bookDao.bookInsert(bo08);
-		
-		/*
-		// 책수정
-		BookVo bookVo= new BookVo("우리들의 일그러진 엄석대", "다림출판사", "2012-12-12", 1, 1);
-		bookDao.bookUpdate(bookVo);
-		
-		// 책삭제
-		bookDao.bookDelete(2);
-		*/
-		
-		// 책리스트 출력
-		System.out.println("-------------------------------------------------");
-		bookList= bookDao.bookSelect();
-		for(BookVo bv: bookList) {
-			bv.showInfo();
-		}
-		System.out.println("-------------------------------------------------");
-		
+
+
 		System.out.print("검색어를 입력해주세요: ");
 		
 		String search= sc.nextLine();
-
-		for(BookVo bv: bookList) {
-			if(bv.getTitle().contains(search) || bv.getPubs().contains(search) 
-			|| bv.getAuthorName().contains(search)) {
-				bv.showInfo();
-			}
 		
+		bookDao.bookSearch(search);
+
 		sc.close();
-		}
 	}
 }
+

@@ -172,7 +172,6 @@ public class BookDao {
 			query += "          author_desc ";
 			query += " from     book b, author a ";
 			query += " where    b.author_id= a.author_id ";
-			// System.out.println(query);
 			
 			// 문자열 쿼리문으로 만들기
 			pstmt= conn.prepareStatement(query);
@@ -191,10 +190,66 @@ public class BookDao {
             	int authorId= rs.getInt("id");
             	String authorName= rs.getString("author_name");
             	String authorDesc= rs.getString("author_desc");
-            	// System.out.println(bookId+", "+title+", "+pubs+", "+pub_date+", "+authorId+", "+authorName+", "+authordesc);
             	
             	BookVo vo= new BookVo(bookId, title, pubs, pubdate, authorId, authorName, authorDesc);
             	bookList.add(vo);
+            }
+
+		} catch (SQLException e) {
+		    System.out.println("error:" + e);
+		}	
+		this.close();
+		
+		return bookList;
+	}
+	
+	public List<BookVo> bookSearch(String search) {
+		List<BookVo> bookList= new ArrayList<BookVo>();
+		
+		this.getConnection();
+
+		try {
+		    // 3. SQL문 준비 / 바인딩 / 실행		
+			String query= "";
+			query += " select   book_id, "; 
+			query += "          title, ";
+			query += "          pubs, ";
+			query += "          to_char(pub_date, 'YYYY-MM-DD') pubdate, ";
+			query += "          a.author_id id, ";
+			query += "          author_name, ";
+			query += "          author_desc ";
+			query += " from     book b, author a ";
+			query += " where    b.author_id= a.author_id ";
+			query += " and      (title like ? or pubs like ? or author_name like ?) ";
+
+			
+			// 문자열 쿼리문으로 만들기
+			pstmt= conn.prepareStatement(query);
+
+			pstmt.setString(1, "%"+search+"%");
+		    pstmt.setString(2, "%"+search+"%");
+		    pstmt.setString(3, "%"+search+"%");
+		    
+			// 실행 
+			rs= pstmt.executeQuery();
+			
+		    // 4.결과처리
+            while(rs.next()) {           
+            	int bookId= rs.getInt("book_id"); 
+            	String title= rs.getString("title");
+            	String pubs= rs.getString("pubs");
+            	String pubdate= rs.getString("pubdate");
+            	int authorId= rs.getInt("id");
+            	String authorName= rs.getString("author_name");
+            	String authorDesc= rs.getString("author_desc");
+            	
+            	BookVo vo= new BookVo(bookId, title, pubs, pubdate, authorId, authorName, authorDesc);
+            	bookList.add(vo);
+            }
+            
+            // 출력
+            for(BookVo bv: bookList) {
+            	bv.showInfo();
             }
 
 		} catch (SQLException e) {
