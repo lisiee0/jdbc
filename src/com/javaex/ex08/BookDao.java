@@ -225,7 +225,8 @@ public class BookDao {
 			
 			// 문자열 쿼리문으로 만들기
 			pstmt= conn.prepareStatement(query);
-
+			
+			// 바인딩
 			pstmt.setString(1, "%"+search+"%");
 		    pstmt.setString(2, "%"+search+"%");
 		    pstmt.setString(3, "%"+search+"%");
