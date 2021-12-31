@@ -58,7 +58,6 @@ public class BookDao {
 	}
 	
 	
-	
 	public void bookInsert(BookVo bookVo) {
 		
 		this.getConnection();
@@ -90,6 +89,7 @@ public class BookDao {
 		} 
 		this.close();
 	}
+	
 	
 	public void bookUpdate(BookVo bookVo) {
 		
@@ -155,6 +155,7 @@ public class BookDao {
 		this.close();
 	}
 	
+	
 	public List<BookVo> bookSelect() {
 		List<BookVo> bookList= new ArrayList<BookVo>();
 		
@@ -202,6 +203,7 @@ public class BookDao {
 		
 		return bookList;
 	}
+	
 	
 	public List<BookVo> bookSearch(String search) {
 		List<BookVo> bookList= new ArrayList<BookVo>();
